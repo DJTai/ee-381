@@ -9,36 +9,33 @@
 # This project does summary statistics
 # and a Pareto chart
 # ------------------------------------
-import math
+from math import sqrt
+from collections import Counter
 
 def main():
-    L: list = []  # Empty list for data
-    N: int = 0
+
+    # initialize data
+    L: list = []            # data
+    N: int = 0              # for length of L
     range: int = 0
     mean: float = 0.0
     variance: float = 0.0
 
-    get_integers(L)
-
-    N = len(L)  # Number of integers in the list
-
-    mean = get_mean(L, N)
+    L = get_integers(L)
+    N = len(L)              # Number of integers in the list
+    mean = get_mean(L, N)   # Store mean for getting the variance
     get_median(L, N)
     get_mode(L)
 
-    # Range - Hi vs lo
     range = L[N - 1] - L[0]
     print('The range of the list: {}'.format(range))
 
-    # Variance
     variance = get_variance(L, mean, N)
-    
-    # Standard Deviation
-    print('The standard deviation is: {:.3f}.'.format(math.sqrt(variance)))
+    print('The standard deviation is: {:.3f}.'.format(sqrt(variance)))
 
     # Pareto chart created w/ household spending data given
 
-def get_integers(L: list):
+def get_integers(f_L: list) -> list:
     v = 1   # Initial value for boolean variable
 
     print('You will be asked to input non-negative integers.')
@@ -50,14 +47,15 @@ def get_integers(L: list):
             if (l < 0):
                 print('\nERROR: That number is negative. Please enter a non-negative integer\n')
             else:
-                L.append(l)
+                f_L.append(l)
         except ValueError:
             print('Input halted.')
             print('\n')
             v = 0
 
-    print('You inputted the following list of numbers: ', L)
+    print('You inputted the following list of numbers: ', f_L)
     print('\n')
+    return f_L
 
 def get_mean(L: list, N: int) -> float:
     # Calculation of the mean
@@ -84,7 +82,24 @@ def get_median(L, N):
     print('The median of the numbers entered is {}'.format(median))
 
 def get_mode(L: list):
-    mode:int = 0
+    mode: list = []
+    ref:int = 1     # Start reference at 1 since every number appears at least once
+
+    c = Counter(L)
+    freq = c.most_common()
+
+    for num, val in freq:
+        if val > ref:
+            ref = val
+            if len(mode) != 0:
+                mode = []
+            mode.append(num)
+        elif val == ref:
+            mode.append(num)
+
+    print('The mode(s) is/are: {}'.format('None' if len(mode) == 0 else ", ".join(str(val) for val in mode)), end=" ")
+    print('with frequency {}'.format(ref))
+
 
     return mode
 
