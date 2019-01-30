@@ -9,9 +9,36 @@
 # This project does summary statistics
 # and a Pareto chart
 # ------------------------------------
+import math
 
 def main():
-    L = []  # Empty list for data
+    L: list = []  # Empty list for data
+    N: int = 0
+    range: int = 0
+    mean: float = 0.0
+    variance: float = 0.0
+
+    get_integers(L)
+
+    N = len(L)  # Number of integers in the list
+
+    mean = get_mean(L, N)
+    get_median(L, N)
+    get_mode(L)
+
+    # Range - Hi vs lo
+    range = L[N - 1] - L[0]
+    print('The range of the list: {}'.format(range))
+
+    # Variance
+    variance = get_variance(L, mean, N)
+    
+    # Standard Deviation
+    print('The standard deviation is: {:.3f}.'.format(math.sqrt(variance)))
+
+    # Pareto chart created w/ household spending data given
+
+def get_integers(L: list):
     v = 1   # Initial value for boolean variable
 
     print('You will be asked to input non-negative integers.')
@@ -32,32 +59,20 @@ def main():
     print('You inputted the following list of numbers: ', L)
     print('\n')
 
-    N = len(L)  # Number of integers in the list
-    get_mean(L, N)
-    get_median(L, N)
-    get_mode(L)
-
-    # Range - Hi vs lo
-    range = L[len(L)-1] - L[0]
-
-    # Variance
-    # sum((x - mu)^2) / N
-
-    # Standard Deviation
-    # sqrt(variance)
-
-    # Pareto chart created w/ household spending data given
-
-def get_mean(L, N):
+def get_mean(L: list, N: int) -> float:
     # Calculation of the mean
     s = sum(L)  # The sum of the inputted numbes
     N = len(L)
-    mean = s / N
-    print('The mean of the numbers entered is {}'.format(mean))
+    f_mean = s / N
+    print('The mean of the numbers entered is {:.3f}'.format(f_mean))
+    
+    return f_mean
     # ---------------------------------------------------------
 
 def get_median(L, N):
     L.sort()  # Sort the list
+    median = 0
+
     # It is necessary to determine whether or not the length of the list is even
     # or odd
     if N % 2 == 0:
@@ -68,17 +83,23 @@ def get_median(L, N):
         median = L[N//2]
     print('The median of the numbers entered is {}'.format(median))
 
-def get_mode(L):
-    pass
+def get_mode(L: list):
+    mode:int = 0
 
-def get_range():
-    pass
+    return mode
 
-def get_variance():
-    pass
+def get_variance(L: list, mean: float, N: int) -> float:
+    top_sum = 0
+    f_variance = 0
 
-def get_std_dev():
-    pass
+    for val in L:
+        top_sum += (val - mean)**2
+
+    f_variance = top_sum / N
+
+    print('The variance is {:.3f}'.format(f_variance))
+    return f_variance
+
 
 if __name__ == "__main__":
     main()
