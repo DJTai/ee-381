@@ -106,6 +106,7 @@ def get_mode(L):
 
     return mode
 
+
 def get_variance(L, mean, N):
     top_sum = 0
     f_variance = 0
