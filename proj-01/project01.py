@@ -1,14 +1,13 @@
 #!/usr/bin/env
 
-# EE 381 Spring 2019 Project 01
-# David Taitingfong
-# 016695521
-# Start  Date: 01-23-2019
-# End Date:    01-??-2019
-# ------------------------------------
-# This project does summary statistics
-# and a Pareto chart
-# ------------------------------------
+'''
+Name: David Taitingfong
+ID #: 016695521
+EE 381 Spring 2019
+Project 01
+Start Date: 01-23-2019
+End Date:   02-06-2019
+'''
 
 from math import sqrt
 from collections import Counter
@@ -85,11 +84,9 @@ def get_median(L, N):
 
     # It is necessary to determine whether or not the length of the list is even
     # or odd
-    if N % 2 == 0:
-        # Even
+    if N % 2 == 0:  # Even
         median = (L[N//2] + L[(N//2) - 1]) / 2
-    else:
-        # Odd
+    else:   # Odd
         median = L[N//2]
     print('The median of the numbers entered is {}'.format(median))
 
@@ -146,6 +143,13 @@ def get_variance(L: list, mean: float, N: int) -> float:
 def get_std_dev(list_variance):
     """Print the standard deviation to the screen"""
     print('The standard deviation is: {:.3f}.'.format(sqrt(list_variance)))
+
+
+def create_pareto_chart():
+    
+    x = ['Rent', 'Credit Cards', 'Food', 'Utilities', 'Transportation']
+    y = [2000, 400, 800, 200, 350]
+    pyplot.bar(x, y)
 
 
 if __name__ == "__main__":
