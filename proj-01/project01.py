@@ -20,28 +20,24 @@ def main():
     # initialize data
     L: list = []            # data
     N: int = 0              # for length of L
-    range: int = 0
     mean: float = 0.0
     variance: float = 0.0
 
-    L = get_integers(L)
+    L = get_integers(L)     # Get integers & print to screen
     N = len(L)              # Number of integers in the list
     mean = get_mean(L, N)   # Store mean for getting the variance
     get_median(L, N)
     get_mode(L)
-
-    range = L[N - 1] - L[0]
-    print('The range of the list: {}'.format(range))
-
+    get_range(L)
     variance = get_variance(L, mean, N)
-    print('The standard deviation is: {:.3f}.'.format(sqrt(variance)))
+    get_std_dev(variance)
 
     # Pareto chart created w/ household spending data given
     # TODO: Change to actual data
-    x = [0, 1, 2, 3]
-    y = [5, 2, 4, 1]
-    pyplot.plot(x, y)
-    pyplot.show()
+    # x = [0, 1, 2, 3]
+    # y = [5, 2, 4, 1]
+    # pyplot.plot(x, y)
+    # pyplot.show()
 
 
 def get_integers(f_L: list) -> list:
@@ -61,8 +57,7 @@ def get_integers(f_L: list) -> list:
             else:
                 f_L.append(l)
         except ValueError:
-            print('Input halted.')
-            print('\n')
+            print('Input halted.\n')
             v = 0
 
     print('You inputted the following list of numbers: ', f_L)
@@ -118,17 +113,26 @@ def get_mode(L: list):
             mode.append(num)
 
     print('The mode(s) is/are: {}'.format('None' if len(mode) ==
-                                          s0 else ", ".join(str(val) for val in mode)), end=" ")
+                                          0 else ", ".join(str(val) for val in mode)), end=" ")
     print('with frequency {}'.format(ref))
 
     return mode
 
 
+def get_range(r_list: list):
+    """Calculate and return the range"""
+
+    highest = max(r_list)
+    lowest = min(r_list)
+    r = highest - lowest
+    print("The range is {}".format(r))
+
+
 def get_variance(L: list, mean: float, N: int) -> float:
-    """Calculate and retrieve the variance of the supplied list"""
+    """Calculate, print, and return the variance of the supplied list"""
 
     top_sum = 0
-    f_variance = 0
+    f_variance = 0.0
 
     for val in L:
         top_sum += (val - mean)**2
@@ -137,6 +141,11 @@ def get_variance(L: list, mean: float, N: int) -> float:
     print('The variance is {:.3f}'.format(f_variance))
 
     return f_variance
+
+
+def get_std_dev(list_variance):
+    """Print the standard deviation to the screen"""
+    print('The standard deviation is: {:.3f}.'.format(sqrt(list_variance)))
 
 
 if __name__ == "__main__":
