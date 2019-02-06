@@ -31,12 +31,8 @@ def main():
     variance = get_variance(L, mean, N)
     get_std_dev(variance)
 
-    # Pareto chart created w/ household spending data given
-    # TODO: Change to actual data
-    # x = [0, 1, 2, 3]
-    # y = [5, 2, 4, 1]
-    # pyplot.plot(x, y)
-    # pyplot.show()
+    print()
+    create_pareto_chart()
 
 
 def get_integers(f_L: list) -> list:
@@ -94,7 +90,7 @@ def get_median(L, N):
 def get_mode(L: list):
     """Retrieve the mode of the supplied list"""
 
-    mode: list = []
+    f_mode: list = []
     ref: int = 1     # Start reference at 1 since every number appears at least once
 
     c = Counter(L)
@@ -103,17 +99,17 @@ def get_mode(L: list):
     for num, val in freq:
         if val > ref:
             ref = val
-            if len(mode) != 0:
-                mode = []
-            mode.append(num)
+            if len(f_mode) != 0:
+                f_mode = []
+            f_mode.append(num)
         elif val == ref:
-            mode.append(num)
+            f_mode.append(num)
 
-    print('The mode(s) is/are: {}'.format('None' if len(mode) ==
-                                          0 else ", ".join(str(val) for val in mode)), end=" ")
+    print('The mode(s) is/are: {}'.format('None' if len(f_mode) ==
+                                          0 else ", ".join(str(val) for val in f_mode)), end=" ")
     print('with frequency {}'.format(ref))
 
-    return mode
+    return f_mode
 
 
 def get_range(r_list: list):
@@ -146,10 +142,30 @@ def get_std_dev(list_variance):
 
 
 def create_pareto_chart():
+    """Create pareto chart from user supplied values"""
     
-    x = ['Rent', 'Credit Cards', 'Food', 'Utilities', 'Transportation']
-    y = [2000, 400, 800, 200, 350]
-    pyplot.bar(x, y)
+    x = ['Rent', 'Credit Cards', 'Food', 'Utilities', 'Transportation']  # Bills
+    y = [0 for i in range(len(x))]  # Initialize 0's for each bill
+
+    for i in range(len(x)):
+        print("The debt is {}".format(x[i]))
+        y[i] = float((input("Enter the amount of money: ")))
+
+    xy = [(k, v) for k, v in zip(x, y)]
+    # Sort from highest value to lowest
+    xy.sort(key=lambda x: x[1], reverse=True)
+
+    pyplot.title("Household Expenses")
+    pyplot.xlabel("Expenses")
+    pyplot.ylabel("Money Spent Per Month")
+
+    x, y = [], []
+    for i in range(len(xy)):
+        x.append(xy[i][0])
+        y.append(xy[i][1])
+
+    pyplot.bar(x, y, 1.0)
+    pyplot.show()
 
 
 if __name__ == "__main__":
