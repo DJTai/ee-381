@@ -144,7 +144,7 @@ def get_std_dev(list_variance):
 def create_pareto_chart():
     """Create pareto chart from user supplied values"""
     
-    x = ['Rent', 'Credit Cards', 'Food', 'Utilities', 'Transportation']  # Bills
+    x = ['Rent', 'Groceries', 'Credit', 'Transportation']  # Bills
     y = [0 for i in range(len(x))]  # Initialize 0's for each bill
 
     for i in range(len(x)):
