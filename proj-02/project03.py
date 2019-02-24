@@ -13,19 +13,31 @@ import time
 import math
 
 
+class RandoNum:
+    def __init__(self):
+        self.M = 8601
+        self.A = 4857
+        self.N = 10000
+        self.S = time.process_time()
+
+
 def flip_a_coin(n: int) -> None:
     """Simulates flipping a coin `n` number of times"""
 
-    M = 8601                # Multiplier
-    A = 4857                # Adder
-    N = 10000               # Norm
-    S = time.process_time()  # Seed
+    # M = 8601                # Multiplier
+    # A = 4857                # Adder
+    # N = 10000               # Norm
+    # S = time.process_time()  # Seed
+    
+    rng = RandoNum()
+    
     heads, tails, total = 0, 0, 0   # Counters
 
     while n != 0:
         n -= 1
-        S = (S * M + A) % N
-        r = S / N
+        rng.S = (rng.S * rng.M + rng.A) % rng.N
+        # S = (S * M + A) % N
+        r = rng.S / rng.N
         coin = math.floor(2*r)
         if coin == 0:
             tails += 1
