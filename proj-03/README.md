@@ -3,7 +3,7 @@
 **Note**: Code is written for Python 3
 
 ### Libraries Needed:
-- Unknown
+- `random`, specifically `randint()` and `uniform()`
 
 ### Not Shown
 - Work done by hand
