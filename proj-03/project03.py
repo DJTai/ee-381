@@ -22,6 +22,8 @@ def part_01():
     for i in range(T):
         r = random.uniform(0, 1)
         print("1", end=" ") if r < p else print("0", end=" ")
+        
+        # Force new line after 5 values are displayed
         if (i + 1) % 5 == 0:
             print()
 
@@ -60,7 +62,7 @@ def part_02():
 
 
 def main():
-    # part_01()
+    part_01()
     part_02()
 
 

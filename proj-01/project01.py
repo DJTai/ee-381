@@ -15,23 +15,23 @@ from matplotlib import pyplot
 
 
 def main():
+    """Main method"""
 
     # initialize data
     L: list = []            # data
-    N: int = 0              # for length of L
-    mean: float = 0.0
-    variance: float = 0.0
+    N: int = -1              # for length of L
+    mean: float = -1.0
+    variance: float = -1.0
 
     L = get_integers(L)     # Get integers & print to screen
     N = len(L)              # Number of integers in the list
     mean = get_mean(L, N)   # Store mean for getting the variance
-    get_median(L, N)
-    get_mode(L)
-    get_range(L)
+    display_median(L, N)
+    display_mode(L)
+    display_range(L)
     variance = get_variance(L, mean, N)
-    get_std_dev(variance)
+    show_std_dev(variance)
 
-    print()
     create_pareto_chart()
 
 
@@ -72,29 +72,29 @@ def get_mean(L: list, N: int) -> float:
     return f_mean
 
 
-def get_median(L, N):
-    """Print the median of the supplied list"""
+def display_median(L, N):
+    """Display to console the median of the supplied list"""
 
     L.sort()  # Sort the list
-    median = 0
+    median = -1
 
     # It is necessary to determine whether or not the length of the list is even
     # or odd
     if N % 2 == 0:  # Even
-        median = (L[N//2] + L[(N//2) - 1]) / 2
+        median = (L[N // 2] + L[(N // 2) - 1]) / 2
     else:   # Odd
-        median = L[N//2]
+        median = L[N // 2]
     print('The median of the numbers entered is {}'.format(median))
 
 
-def get_mode(L: list):
-    """Retrieve the mode of the supplied list"""
+def display_mode(L: list):
+    """Display to console the mode of the supplied list"""
 
     f_mode: list = []
     ref: int = 1     # Start reference at 1 since every number appears at least once
 
     c = Counter(L)
-    freq = c.most_common()
+    freq = c.most_common()  # Key, Value tuples
 
     for num, val in freq:
         if val > ref:
@@ -105,15 +105,16 @@ def get_mode(L: list):
         elif val == ref:
             f_mode.append(num)
 
-    print('The mode(s) is/are: {}'.format('None' if len(f_mode) ==
-                                          0 else ", ".join(str(val) for val in f_mode)), end=" ")
+    print('The mode(s) is/are: {}'.format(
+        'None' if len(f_mode) == 0 else ", ".join(str(val) for val in f_mode)),
+        end=" ")
     print('with frequency {}'.format(ref))
 
     return f_mode
 
 
-def get_range(r_list: list):
-    """Calculate and return the range"""
+def display_range(r_list: list):
+    """Calculate and display to console the range"""
 
     highest = max(r_list)
     lowest = min(r_list)
@@ -125,7 +126,7 @@ def get_variance(L: list, mean: float, N: int) -> float:
     """Calculate, print, and return the variance of the supplied list"""
 
     top_sum = 0
-    f_variance = 0.0
+    f_variance = -1.0
 
     for val in L:
         top_sum += (val - mean)**2
@@ -136,14 +137,14 @@ def get_variance(L: list, mean: float, N: int) -> float:
     return f_variance
 
 
-def get_std_dev(list_variance):
+def show_std_dev(list_variance):
     """Print the standard deviation to the screen"""
     print('The standard deviation is: {:.3f}.'.format(sqrt(list_variance)))
 
 
 def create_pareto_chart():
     """Create pareto chart from user supplied values"""
-    
+
     x = ['Rent', 'Groceries', 'Credit', 'Transportation']  # Bills
     y = [0 for i in range(len(x))]  # Initialize 0's for each bill
 
