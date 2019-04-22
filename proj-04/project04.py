@@ -65,8 +65,9 @@ def main():
         for val in range(y_lo, y_hi + 1):
             prob += b[val]
 
-        print("Probability: {0:.3f}".format(prob))
-        print("Average: {0:.3f}".format(X/N))
+        print("Probability of success from {} to {}: ".format(y_lo, y_hi), end='')
+        print("{0:.4f}".format(prob))
+        print("Average: {0:.4f}".format(X/N))
 
         q = 0
         for k in R:
@@ -103,3 +104,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
